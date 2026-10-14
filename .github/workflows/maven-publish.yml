@@ -4,8 +4,8 @@
 name: Maven Package
 
 on:
-  release:
-    types: [created]
+  push:
+   branches: feature/lab04
 
 jobs:
   build:
