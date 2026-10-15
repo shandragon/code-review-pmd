@@ -15,9 +15,9 @@ public class ValidadorCPF {
 
         String cpfLimpo = cpf.replaceAll("[^0-9]", "");
 
-        if (cpfLimpo.length() != 11) {
-            return false;
-        }
+        //if (cpfLimpo.length() != 11) {
+        //    return false;
+        //}
 
         if (cpfLimpo.equals("00000000000") || cpfLimpo.equals("11111111111")
                 || cpfLimpo.equals("22222222222") || cpfLimpo.equals("33333333333")
