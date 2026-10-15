@@ -2,36 +2,33 @@ name: CI
 
 on:
   push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  build-e-teste:
+  testes:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [ '17', '21' ]
     steps:
-      - name: Baixar o código
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Instalar o JDK 17
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: ${{ matrix.java }}
           cache: maven
 
-      - name: Build e testes
+      - name: Build, testes e cobertura
         run: mvn -B verify
-
-      - name: Publicar relatório de testes
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: surefire-reports
-          path: target/surefire-reports
 
       - name: Publicar relatório de cobertura
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: jacoco
+          name: jacoco-jdk${{ matrix.java }}
           path: target/site/jacoco
 
   analise-estatica:
@@ -55,3 +52,26 @@ jobs:
           name: pmd
           path: target/pmd.xml
           if-no-files-found: warn
+
+  mutacao:
+    needs: testes
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Teste de mutação com Pitest
+        run: mvn -B test-compile org.pitest:pitest-maven:mutationCoverage
+
+      - name: Publicar relatório de mutação
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pitest
+          path: target/pit-reports
