@@ -9,6 +9,11 @@ Este repositório apresenta um pequeno sistema de cadastro/pedidos com **defeito
 
 ## Instruções
 
+### Requisitos
+
+- JDK 17
+- Maven
+
 ### Como executar o projeto
 
 Execute a classe Main.java
@@ -35,4 +40,3 @@ code-review-pmd/
     ├── ValidadorCPF.java
     └── Main.java
 ```
-
