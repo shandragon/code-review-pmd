@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         ValidadorCPF validadorCPF = new ValidadorCPF();
-        System.out.println("CPF 123.456.789-09 valido? " + validadorCPF.ValidaCpf("12345678909"));
+        System.out.println("CPF 123.456.789-09 valido? " + validadorCPF.validaCpf("12345678909"));
 
         ValidadorPedido validadorPedido = new ValidadorPedido();
         String resultado = validadorPedido.validar("SP", "CARTAO", 3, 650.0, false, null);

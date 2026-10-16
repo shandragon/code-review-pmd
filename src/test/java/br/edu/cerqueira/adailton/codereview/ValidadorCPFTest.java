@@ -20,38 +20,38 @@ public class ValidadorCPFTest {
     
     @Test
     public void deveValidarCPF() {
-        assertTrue(this.validadorCPF.ValidaCpf("12345678909"));
-        assertTrue(this.validadorCPF.ValidaCpf("52998224725"));
+        assertTrue(this.validadorCPF.validaCpf("12345678909"));
+        assertTrue(this.validadorCPF.validaCpf("52998224725"));
     }
 
     @Test
     public void deveValidarCPFComMascara() {
-        assertTrue(this.validadorCPF.ValidaCpf("123.456.789-09"));
-        assertTrue(this.validadorCPF.ValidaCpf("529.982.247-25"));
+        assertTrue(this.validadorCPF.validaCpf("123.456.789-09"));
+        assertTrue(this.validadorCPF.validaCpf("529.982.247-25"));
     }
 
     @Test
     public void deveInvalidarCPF() {
-        assertFalse(this.validadorCPF.ValidaCpf("12345678908"));
-        assertFalse(this.validadorCPF.ValidaCpf("52998224724"));
+        assertFalse(this.validadorCPF.validaCpf("12345678908"));
+        assertFalse(this.validadorCPF.validaCpf("52998224724"));
     }
 
     @ParameterizedTest(name = "[{index}] válido: {0}")
     @ValueSource(strings = {"12345678909", "52998224725", "123.456.789-09", "529.982.247-25"})
     public void deveValidarCPFParametro(String cpf) {
-        assertTrue(this.validadorCPF.ValidaCpf(cpf));
+        assertTrue(this.validadorCPF.validaCpf(cpf));
     }
 
     @ParameterizedTest(name = "[{index}] entrada ausente: \"{0}\"")
     @NullAndEmptySource
     @ValueSource(strings = {" "})
     public void deveRejeitarEntradaAusente(String cpf) {
-        assertFalse(this.validadorCPF.ValidaCpf(cpf));
+        assertFalse(this.validadorCPF.validaCpf(cpf));
     }
 
     @ParameterizedTest(name = "[{index}] comprimento inválido: {0}")
     @ValueSource(strings = {"5299822472", "529982247250"})
     public void deveRejeitarComprimentoDiferenteDeOnze(String cpf) {
-        assertFalse(this.validadorCPF.ValidaCpf(cpf));
+        assertFalse(this.validadorCPF.validaCpf(cpf));
     }
 }
